@@ -1,0 +1,29 @@
+{
+  "name": "meal-prep-assistant",
+  "version": "1.0.0",
+  "description": "A tool for planning and prepping meals in advance. Users can input their dietary preferences and restrictions and receive personalized meal plan suggestions for the week. The application will also include a feature for users to create a grocery list based on their selected recipes and generate a cooking schedule to streamline the meal prep process.",
+  "main": "index.js",
+  "scripts": {
+    "-----------INIT-----------": "",
+    "npm-install": "npm install",
+    "-----------Dev------------": "",
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarlHaupt/Meal-Prep-Assistant.git"
+  },
+  "author": "Grad Program Group",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KarlHaupt/Meal-Prep-Assistant/issues"
+  },
+  "homepage": "https://github.com/KarlHaupt/Meal-Prep-Assistant#readme",
+  "dependencies": {
+    "express": "4.17.1",
+    "tedious": "16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.22"
+  }
+}
