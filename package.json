@@ -21,7 +21,8 @@
   "homepage": "https://github.com/KarlHaupt/Meal-Prep-Assistant#readme",
   "dependencies": {
     "express": "4.17.1",
-    "tedious": "16.0.0"
+    "tedious": "16.0.0",
+    "axios": "^1.4.0"
   },
   "devDependencies": {
     "nodemon": "2.0.22"
