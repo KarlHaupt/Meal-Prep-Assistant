@@ -1,19 +1,38 @@
 <html>
   <head>
     <title>Create Meal Plan | Meal Prep Assistant</title>
+    <link rel="stylesheet" href="../styles/create.css" />
   </head>
   <body>
     <header>
       <nav>
         <ul>
-          <li>My Meal Plans</li>
-          <li>Logout</li>
+          <a href="all-meal-plans.html"><li>My Meal Plans</li></a>
+          <a href="login.html"><li>Logout</li></a>
         </ul>
       </nav>
     </header>
-    <section>
+    <section class="create__container">
       <form>
         <h1>Create Meal Plan</h1>
+        
+        <label>Select your preferences below:</label>
+        <ul class="create__form-options">
+        <li><input type="checkbox" name="preference" value="vegetarian"><label>Vegetarian</label></input></li>
+        <li><input type="checkbox" name="preference" value="halaal"><label>Halaal</label></input></li>
+        <li><input type="checkbox" name="preference" value="vegan"><label>Vegan</label></input></li>
+        <li><input type="checkbox" name="preference" value="dairy-free"><label>Dairy-free</label></input></li>
+        <li><input type="checkbox" name="preference" value="gluten-free"><label>Gluten-free</label></input></li>
+        <li><input type="checkbox" name="preference" value="low-carb"><label>Low-carb</label></input></li>
+        <li><input type="checkbox" name="preference" value="high-protein"><label>High-protein</label></input></li>
+        <li><input type="checkbox" name="preference" value="quick and easy"><label>Quick & Easy</label></input></li>
+        <li><input type="checkbox" name="preference" value="budget-friendly"><label>Budget-friendly</label></input></li>
+        <li><input type="checkbox" name="preference" value="explore new flavours"><label>Explore new flavours</label></input></li>
+        </ul>
+        <button type="submit" class="create__button">Generate Meal Plan</button>
+        <!-- TO DO: add validation using JS to ensure that the user chooses at least one checkbox 
+        https://html.form.guide/checkbox/html-form-checkbox-required/
+         -->
       </form>
     </section>
   </body>

@@ -3,6 +3,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #eeeeee;
 }
 
 hr {
@@ -26,7 +27,7 @@ a {
   justify-content: center;
   padding: 1rem;
   border-radius: 8px;
-  background-color: #eeeeee;
+  background-color: #ffffff;
   height: 400px;
   width: 400px;
 }
@@ -42,6 +43,7 @@ a {
   border-style: none;
   height: 20px;
   width: 100%;
+  background-color: #eeeeee;
 }
 
 .login__form label {
