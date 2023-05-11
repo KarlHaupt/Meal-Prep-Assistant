@@ -32,7 +32,7 @@ CREATE TABLE user_preferences (
 GO
 
 CREATE TABLE lookup_preferences (
-	[preferences_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[preference_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[preference_type] [varchar](100) NOT NULL,
 );
 GO
@@ -48,5 +48,17 @@ CREATE TABLE recipe (
 	[recipe_url] [varchar](200) NULL,
 	[recipe_category] [varchar](100) NULL,
 	[recipe_meal_type] [varchar](50) NULL,
+);
+GO
+
+CREATE TABLE user_intolerances (
+	[user_id] [INT] NOT NULL,
+	[intolerance_id] [INT] NOT NULL,
+);
+GO
+
+CREATE TABLE lookup_intolerances (
+	[intolerance_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[intolerance_type] [varchar](100) NOT NULL,
 );
 GO
