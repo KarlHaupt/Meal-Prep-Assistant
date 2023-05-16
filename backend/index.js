@@ -1,5 +1,5 @@
 const app = require('./app');
-const connectToDatabase = require('./config/connectDatabase');
+const { connectToDatabase } = require('./config/connectDatabase');
 
 process.on('uncaughtException', err => {
     console.log(`ERROR: ${err}`);
@@ -7,7 +7,7 @@ process.on('uncaughtException', err => {
     process.exit(1);
 });
 
-connectToDatabase()
+connectToDatabase();
 
 const server = app.listen(8080, () => {
     console.log(`Server started on PORT: 8080 in ${process.env.NODE_ENV}`);
