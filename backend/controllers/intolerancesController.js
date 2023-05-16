@@ -4,11 +4,11 @@ const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const { TYPES } = require('tedious');
 
-//Get user preferences
+//Get user intolerances
 exports.getPreferences = catchAsyncError(async (req, res, next) => {
     const { email } = req.body;
     
-    let sql = "spPreferences_GetByUserEmail"
+    let sql = "spIntolerances_GetByUserEmail"
     
     const request = new Request(sql, function(err) {
         if(err) {
@@ -21,19 +21,19 @@ exports.getPreferences = catchAsyncError(async (req, res, next) => {
     connection.callProcedure(request);
 
     request.on('requestCompleted', function(rowCount, rows) {
-        const preferencesReceived = false;
+        const intolerancesReceived = false;
         if(rowCount >= 1) {
-            preferencesReceived = true;
+            intolerancesReceived = true;
         }
 
-        if(!preferencesReceived) {
-            return next(new ErrorHandler('Unable to obtain preferences', 401));
+        if(!intolerancesReceived) {
+            return next(new ErrorHandler('Unable to obtain intolerances', 401));
         }
         
         res.status(200).json({
             success: true,
-            message: 'Preferences obtained',
-            user_preferences: rows
+            message: 'Intolerances obtained',
+            user_intolerances: rows
         });
     });
 });
