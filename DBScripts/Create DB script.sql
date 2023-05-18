@@ -12,9 +12,8 @@ GO
 
 CREATE TABLE user_details (
 	[user_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[firstname] [varchar](120) NULL,
-	[lastname] [varchar](120) NULL,
-	[email] [nvarchar](120) NOT NULL,
+	[username] [varchar](120) NULL,
+	[email] [nvarchar](120) NOT NULL UNIQUE,
 	[password] [varchar](120) NOT NULL,
 );
 GO
