@@ -42,22 +42,29 @@ exports.getIntolerances = catchAsyncError(async (req, res, next) => {
             user_intolerances: rows
         });
     });
-    /*request.on('doneInProc', function(rowCount, more, rows) {
-        const intolerancesReceived = false;
-        console.log("This is the row count: " + rowCount);
-        console.log("More: " + more);
-        if(rowCount >= 1) {
-            intolerancesReceived = true;
-        }
+});
 
-        if(!intolerancesReceived) {
-            return next(new ErrorHandler('Unable to obtain intolerances', 401));
+exports.addIntolerance = catchAsyncError(async (req, res, next) => {
+    const intolerance = 'Grain';
+    const email = 'test';
+
+    let sql = 'spIntolerances_InsertUserIntolerance';
+
+    const request = new Request(sql, function(err, rowCount, rows) {
+        if(err) {
+            return next(new ErrorHandler('Internal Server Error', 500));
         }
-        
+    });
+
+    request.addParameter('user_intolerance', TYPES.VarChar, intolerance);
+    request.addParameter('user_email', TYPES.NVarChar, email);
+
+    connection.callProcedure(request);    
+    
+    request.on('requestCompleted', () => {            
         res.status(200).json({
             success: true,
-            message: 'Intolerances obtained',
-            user_intolerances: rows
+            message: 'Intolerances added'
         });
-    });*/
+    });
 });
