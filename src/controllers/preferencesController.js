@@ -4,6 +4,38 @@ const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const { TYPES } = require('tedious');
 
+// GetAllPreferences
+exports.getAllPreferences = catchAsyncError(async (req, res, next) => {
+
+    let sql = 'spPreferences_GetAllPreferences';
+
+    const request = new Request(sql, function(err, rowCount, rows) {
+        if(err) {
+            return next(new ErrorHandler('Internal Server Error', 500));
+        }
+    });
+
+    connection.callProcedure(request);
+
+    request.on('doneInProc', (rowCount, more, rows) => {
+        preferencesReceived = false;
+
+        if(rows.length >= 1) {
+            preferencesReceived = true;
+        }
+
+        if(!preferencesReceived) {
+            return next(new ErrorHandler('Unable to obtain preferences', 401));
+        }
+        
+        res.status(200).json({
+            success: true,
+            message: 'Preferences obtained',
+            user_intolerances: rows
+        });
+    });
+});
+
 //Get user preferences
 exports.getPreferences = catchAsyncError(async (req, res, next) => {
     //const { email } = req.body;
