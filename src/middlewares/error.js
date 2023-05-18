@@ -11,12 +11,9 @@ module.exports = (err, req, res, next) => {
     }
 
     if(process.env.NODE_ENV !== 'PRODUCTION') {
-        let error = { err };
-        error.message = err.message;
-
-        res.status(error.statusCode || 500).json({
+        res.status(err.statusCode || 500).json({
             success: false,
-            message: error.message || 'Internal Server Error'
+            message: err.message || 'Internal Server Error'
         });
     }
 }
