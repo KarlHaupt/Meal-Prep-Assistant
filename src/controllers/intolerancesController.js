@@ -45,6 +45,7 @@ exports.getIntolerances = catchAsyncError(async (req, res, next) => {
 });
 
 exports.addIntolerance = catchAsyncError(async (req, res, next) => {
+    //const { intolerance, email } = req.body;
     const intolerance = 'Grain';
     const email = 'test';
 
@@ -64,7 +65,7 @@ exports.addIntolerance = catchAsyncError(async (req, res, next) => {
     request.on('requestCompleted', () => {            
         res.status(200).json({
             success: true,
-            message: 'Intolerances added'
+            message: 'Intolerance added'
         });
     });
 });
