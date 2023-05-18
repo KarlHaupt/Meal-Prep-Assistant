@@ -42,7 +42,8 @@ app.post("/auth/register", async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: 'Register successful'
+        message: 'Register successful',
+        user: rows[0][1].value
     });
 });
 
