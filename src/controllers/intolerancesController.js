@@ -4,6 +4,38 @@ const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const { TYPES } = require('tedious');
 
+// GetAllIntolerances
+exports.getAllIntolerances = catchAsyncError(async (req, res, next) => {
+
+    let sql = 'spIntolerances_GetAllIntolerances';
+
+    const request = new Request(sql, function(err, rowCount, rows) {
+        if(err) {
+            return next(new ErrorHandler('Internal Server Error', 500));
+        }
+    });
+
+    connection.callProcedure(request);
+
+    request.on('doneInProc', (rowCount, more, rows) => {
+        intolerancesReceived = false;
+
+        if(rows.length >= 1) {
+            intolerancesReceived = true;
+        }
+
+        if(!intolerancesReceived) {
+            return next(new ErrorHandler('Unable to obtain intolerances', 401));
+        }
+        
+        res.status(200).json({
+            success: true,
+            message: 'Intolerances obtained',
+            user_intolerances: rows
+        });
+    });
+});
+
 //Get user intolerances
 exports.getIntolerances = catchAsyncError(async (req, res, next) => {
     //const { email } = req.body;
