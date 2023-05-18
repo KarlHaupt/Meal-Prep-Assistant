@@ -6,8 +6,8 @@ const { TYPES } = require('tedious');
 
 //Get user intolerances
 exports.getIntolerances = catchAsyncError(async (req, res, next) => {
-    const { email } = req.body;
-    //const email = 'test';
+    //const { email } = req.body;
+    const email = 'test';
 
     let sql = 'spIntolerances_GetByUserEmail';
 
@@ -17,7 +17,7 @@ exports.getIntolerances = catchAsyncError(async (req, res, next) => {
         } 
 
         if(rows.length >= 1) {
-            return next(new ErrorHandler('Invalid Email or Password', 401));
+            return next(new ErrorHandler('Invalid Email', 401));
         }
     });
 

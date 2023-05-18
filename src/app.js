@@ -15,9 +15,11 @@ app.use(express.static("src/public"))
 //NOTE: Import all the routes
 const users = require('./routes/user');
 const intolerances = require('./routes/intolerances')
+const preferences = require('./routes/preferences')
 
 app.use('/api/v1', users)
 app.use('/api/v1', intolerances)
+app.use('/api/v1', preferences)
 //NOTE: Add Middleware
 
 app.post("/auth/register", async (req, res, next) => {
