@@ -10,7 +10,7 @@ const bcrypt = require('bcryptjs');
 app.use(express.urlencoded({extended: 'false'}))
 app.use(express.json())
 
-app.use(express.static("public"))
+app.use(express.static("src/public"))
 
 //NOTE: Import all the routes
 const users = require('./routes/user');
