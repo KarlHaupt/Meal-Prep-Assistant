@@ -1,7 +1,6 @@
 
 CREATE PROCEDURE spPreferences_GetByUserEmail
-	@email nvarchar(120),
-	@preference_type varchar(50) output
+	@email nvarchar(120)
 AS
 BEGIN
 	SET NOCOUNT ON;
