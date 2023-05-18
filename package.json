@@ -7,7 +7,7 @@
     "-----------INIT-----------": "",
     "npm-install": "npm install",
     "-----------Dev------------": "",
-    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/index"
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon src/index"
   },
   "repository": {
     "type": "git",
