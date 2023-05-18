@@ -1,6 +1,5 @@
 CREATE PROCEDURE spIntolerances_GetByUserEmail
-	@email nvarchar(120),
-	@intolerance_type varchar(50) output
+	@email nvarchar(120)
 AS
 BEGIN
 	SET NOCOUNT ON;
