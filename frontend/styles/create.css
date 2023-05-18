@@ -54,14 +54,32 @@ nav ul li:hover {
 .create__form-options {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-  list-style: none;
+  justify-content: space-around;
   padding: 0;
-  columns: 2;
+  background-color: rgb(144, 161, 125, 0.2);
+  border-radius: 4px;
+  word-wrap: normal;
 }
 
-.create__form-options input {
+.create__form-options ul {
+  overflow-wrap: normal;
+  columns: 4;
+  -webkit-columns: 4;
+  -moz-columns: 4;
+  list-style: none;
+}
+
+.create__form-options li {
+  margin-bottom: 10px;
+}
+
+.checkbox-container {
+  font-family: system-ui, sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
 }
 
 .create__button {
@@ -71,9 +89,97 @@ nav ul li:hover {
   border-radius: 4px;
   padding: 8px;
   margin-top: 25px;
+  font-size: 1.2em;
 }
 
 .create__button:hover {
   background-color: #90a17d;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .create__form-options ul {
+    overflow-wrap: normal;
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+  }
+}
+
+@media (max-width: 510px) {
+  .create__form-options ul {
+    overflow-wrap: normal;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
+}
+
+/* custom checkboxes */
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.1em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #829460;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.checkbox-container + .checkbox-container {
+  margin-top: 1em;
+}
+
+/* custom radio buttons */
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.1em solid currentColor;
+  border-radius: 1em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 1em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em #829460;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
 }
