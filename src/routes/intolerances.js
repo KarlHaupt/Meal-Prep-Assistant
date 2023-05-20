@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { getIntolerances } = require('../controllers/intolerancesController');
+const { getIntolerances, addIntolerance, getAllIntolerances } = require('../controllers/intolerancesController');
 
-router.route('/intolerance').post(getIntolerances);
+router.route('/getAllIntolerances').get(getAllIntolerances);
+router.route('/getIntolerances').get(getIntolerances);
+router.route('/addIntolerance').get(addIntolerance);
 
 module.exports = router;
