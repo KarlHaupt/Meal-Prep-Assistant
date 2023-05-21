@@ -23,7 +23,6 @@
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "express": "4.17.1",
-    "hbs": "^4.2.0",
     "tedious": "16.0.0"
   },
   "devDependencies": {

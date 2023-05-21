@@ -2,7 +2,6 @@ const Request = require('tedious').Request;
 const { connection } = require('../config/connectDatabase');
 const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncError');
-const { comparePassword, encryptPassword } = require('../utils/encryptionUtils');
 const bcrypt = require('bcryptjs');
 
 const path = require('path');
@@ -59,9 +58,9 @@ const registerUser = async (req, res, next) => {
         return next(new ErrorHandler("Passwords don't match!", 400));
     }
 
-    const encryptedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const sql = `INSERT INTO user_details (username, email, password) VALUES ( '${username}', '${email}', '${encryptedPassword}')`
+    const sql = `INSERT INTO user_details (username, email, password) VALUES ( '${username}', '${email}', '${hashedPassword}')`
 
     let user = {}
     let request = new Request(sql, function(err, rowCount, rows) {

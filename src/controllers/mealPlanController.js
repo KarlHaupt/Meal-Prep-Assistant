@@ -1,6 +1,12 @@
 const MealPlan = require("../lib");
+const catchAsyncError = require('../middlewares/catchAsyncError');
+const path = require('path');
 
 const mealPlan = new MealPlan("need apikey");
+
+const mealPlanView = (req, res) => {
+    res.sendFile('create.html', { root: path.join(__dirname, '../views') });
+}
 
 const generateMealPlan = catchAsyncError(async (req, res, next) => {
     const { targetCalories, diet, excludeItem } = req.body;
@@ -13,6 +19,7 @@ const getRecipe = catchAsyncError(async (req, res, next) => {
 });
 
 module.exports = {
+    mealPlanView,
     generateMealPlan,
     getRecipe
 }
