@@ -45,6 +45,7 @@ const loginUser = catchAsyncError(async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: 'Login Successfully',
+            redirectPath: "http://localhost:8080/api/v1/mealPlan",
             user: rows[0][1].value
         });
     }));
@@ -54,34 +55,40 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 const registerUser = async (req, res, next) => {
     const { email, username, password, confirm_password} = req.body;
 
-    if(password != confirm_password) {
-        return next(new ErrorHandler("Passwords don't match!", 400));
-    }
+    // if(password != confirm_password) {
+    //     return next(new ErrorHandler("Passwords don't match!", 400));
+    // }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const sql = `INSERT INTO user_details (username, email, password) VALUES ( '${username}', '${email}', '${hashedPassword}')`
 
-    let user = {}
     let request = new Request(sql, function(err, rowCount, rows) {
         if(err) {
-            console.log("Hit 1");
             return next(new ErrorHandler('Internal Server Error', 500));
         } 
 
-        if(rowCount === 0) {
-            console.log("Hit 2");
+        if(rowCount === 0 || rowCount === undefined) {
+            return next(new ErrorHandler('Incorrect Details Supplied', 401));
+        }
+   });
+
+   connection.execSql(request.on('doneInProc', async function(rowCount, more, rows) {
+    //TODO: Figure out how to catch duplicate error problem
+        if(rowCount === 0 || rowCount === undefined) {
             return next(new ErrorHandler('Incorrect Details Supplied', 401));
         }
 
-        connection.execSql(request);
-   });
+        if(rows.length <= 1) {
+            return next(new ErrorHandler('Incorrect Details Supplied', 401));
+        }
+    }));
 
-   res.status(200).json({
-    success: true,
-    message: 'Register successful',
-    user: user
-});
+    res.status(200).json({
+        success: true,
+        message: 'Register successful',
+        redirectPath: "http://localhost:8080/api/v1/auth/login"
+    });
 };
 
 module.exports =  {

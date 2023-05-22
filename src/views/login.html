@@ -5,17 +5,35 @@
   </head>
   <body>
     <section class="login__container">
-      <form class="login__form" action="/auth/login" method="POST">
+      <form class="login__form" onsubmit="sendLoginRequest()">
         <h3>Login</h3>
         <hr />
         <label for="email">Email</label>
-        <input type="email" name="email" />
+        <input id="email" type="email" name="email" />
         <label for="password">Password</label>
-        <input type="password" name="password" />
+        <input id="password" type="password" name="password" />
         <button type="submit" class="login__button">
           Login
         </button>
       </form>
+      <script>
+        async function sendLoginRequest() { 
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+
+          try { 
+            const config = { headers: { 'Content-Type': 'application/json' } };
+            const response = await axios.post('http://localhost:8080/api/v1/auth/login', { email, password }, config); 
+            if(response.data.redirectPath) {
+              location.href = response.data.redirectPath;
+            }
+            return response; 
+          } catch (error) { 
+            Alert(error)
+            console.error(error); 
+          } 
+        };
+      </script>
     </section>
   </body>
 </html>

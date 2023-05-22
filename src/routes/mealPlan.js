@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { mealPlanView, generateMealPlan, getRecipe } = require('../controllers/mealPlanController');
+const { mealPlanView, myMealPlanView, generateMealPlan, getRecipe } = require('../controllers/mealPlanController');
 
-router.get('/mealplan', mealPlanView)
+router.get('/mealPlan', mealPlanView);
+router.get('/myMealPlan', myMealPlanView);
 router.post('/generateMealPlan', generateMealPlan);
 router.post('/getRecipe', getRecipe);
 

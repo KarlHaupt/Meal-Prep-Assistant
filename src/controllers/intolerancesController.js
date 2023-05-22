@@ -4,12 +4,13 @@ const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const { TYPES } = require('tedious');
 
-// GetAllIntolerances
+//Get user intolerances
 exports.getAllIntolerances = catchAsyncError(async (req, res, next) => {
-
-    let sql = 'spIntolerances_GetAllIntolerances';
-
-    const request = new Request(sql, function(err, rowCount, rows) {
+    const { email } = req.body;
+    
+    let sql = "spIntolerances_GetByUserEmail"
+    
+    const request = new Request(sql, function(err) {
         if(err) {
             return next(new ErrorHandler('Internal Server Error', 500));
         }

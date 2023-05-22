@@ -1,25 +1,46 @@
 <html>
   <head>
-    <title>Login | Meal Prep Assistant</title>
+    <title>Register | Meal Prep Assistant</title>
     <link rel="stylesheet" href="/styles/login.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <section class="login__container">
-      <form class="login__form" action="/auth/register" method="POST">
+      <form id="formm" class="login__form" onsubmit="sendRegisterRequest()">
         <h3>Register</h3>
         <hr />
         <label for="email">Email</label>
-        <input type="email" name="email" />
+        <input id="email" type="email" name="email" />
         <label for="username">Username</label>
-        <input type="username" name="username" />
+        <input id="username" type="username" name="username" />
         <label for="password">Password</label>
-        <input type="password" name="password" />
+        <input id="password" type="password" name="password" />
         <label for="confirm-password">Confirm Password</label>
-        <input type="confirm-password" name="confirm_password" />
+        <input id="confirmPassword" type="confirm-password" name="confirm_password" />
         <button type="submit" class="login__button">
           Register
         </button>
       </form>
+      <script>
+        async function sendRegisterRequest() { 
+          const email = document.getElementById('email').value;
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+          const confirm_password = document.getElementById('confirmPassword').value;
+
+          try { 
+            const config = { headers: { 'Content-Type': 'application/json' } };
+            const response = await axios.post('http://localhost:8080/api/v1/auth/register', { username, email, password, confirm_password }, config); 
+            if(response.data.redirectPath) {
+              location.href = response.data.redirectPath;
+            }
+            return response; 
+          } catch (error) { 
+            Alert(error)
+            console.error(error); 
+          } 
+        };
+      </script>
     </section>
   </body>
 </html>
