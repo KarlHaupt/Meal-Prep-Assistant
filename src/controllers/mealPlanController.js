@@ -15,11 +15,26 @@ const myMealPlanView = (req, res) => {
 const generateMealPlan = catchAsyncError(async (req, res, next) => {
     const { targetCalories, diet, excludeItem } = req.body;
 
-    return await mealPlan.generateMealPlan(targetCalories, diet, excludeItem)
+    const plan = await mealPlan.generateMealPlan(targetCalories, diet, excludeItem)
+
+    res.status(200).json({
+        success: true,
+        message: 'Generated Meal Plan Successfully',
+        redirectPath: "http://localhost:8080/api/v1/myMealPlan",
+        plan: plan
+    });
 });
 
 const getRecipe = catchAsyncError(async (req, res, next) => {
-    return await mealPlan.getRecipe("ID to get from somewhere");
+    const { recipeId } = req.body;
+
+    const recipe = await mealPlan.getRecipe(recipeId);
+
+    res.status(200).json({
+        success: true,
+        message: 'Get Recipe Successfully',
+        recipe: recipe
+    });
 });
 
 module.exports = {

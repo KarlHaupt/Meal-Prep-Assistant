@@ -16,7 +16,7 @@
         <label for="password">Password</label>
         <input id="password" type="password" name="password" />
         <label for="confirm-password">Confirm Password</label>
-        <input id="confirmPassword" type="confirm-password" name="confirm_password" />
+        <input id="confirmPassword" type="password" name="confirm_password" />
         <button type="submit" class="login__button">
           Register
         </button>
@@ -34,9 +34,9 @@
             if(response.data.redirectPath) {
               location.href = response.data.redirectPath;
             }
-            return response; 
           } catch (error) { 
-            Alert(error)
+            location.href = 'http://localhost:8080/api/v1/register';
+            alert(error)
             console.error(error); 
           } 
         };

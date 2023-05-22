@@ -5,6 +5,7 @@ const catchAsyncError = require('../middlewares/catchAsyncError');
 const bcrypt = require('bcryptjs');
 
 const path = require('path');
+const { log } = require('console');
 
 const registerView = (req, res) => {
     res.sendFile('register.html', { root: path.join(__dirname, '../views') });
@@ -36,7 +37,7 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 
     connection.execSql(request.on('doneInProc', async function(rowCount, more, rows) {
         if(rowCount >= 1) {
-            const isPasswordMatched = await bcrypt.compare(password, rows[0][4].value);
+            const isPasswordMatched = await bcrypt.compare(password, rows[0][3].value);
             if(!isPasswordMatched) {
                 return next(new ErrorHandler('Invalid Email or Password', 401));
             }
@@ -55,9 +56,9 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 const registerUser = async (req, res, next) => {
     const { email, username, password, confirm_password} = req.body;
 
-    // if(password != confirm_password) {
-    //     return next(new ErrorHandler("Passwords don't match!", 400));
-    // }
+    if(password != confirm_password) {
+        return next(new ErrorHandler("Passwords don't match!", 400));
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -78,16 +79,12 @@ const registerUser = async (req, res, next) => {
         if(rowCount === 0 || rowCount === undefined) {
             return next(new ErrorHandler('Incorrect Details Supplied', 401));
         }
-
-        if(rows.length <= 1) {
-            return next(new ErrorHandler('Incorrect Details Supplied', 401));
-        }
     }));
 
     res.status(200).json({
         success: true,
         message: 'Register successful',
-        redirectPath: "http://localhost:8080/api/v1/auth/login"
+        redirectPath: "http://localhost:8080/api/v1/login"
     });
 };
 

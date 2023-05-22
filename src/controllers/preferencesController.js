@@ -75,7 +75,7 @@ exports.getPreferences = catchAsyncError(async (req, res, next) => {
         });
     });
 });
-
+//Diet
 exports.addPreference = catchAsyncError(async (req, res, next) => {
     //const { preference, email } = req.body;
     const preference = 'Vegan';

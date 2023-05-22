@@ -2,6 +2,7 @@
   <head>
     <title>Create Meal Plan | Meal Prep Assistant</title>
     <link rel="stylesheet" href="/styles/create.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <header>
@@ -13,7 +14,7 @@
       </nav>
     </header>
     <section class="create__container">
-      <form>
+      <form onsubmit="sendGenerateMealPlanRequest()">
         <h1>Create Meal Plan</h1>
         
         <h3>Select your diet:</h3>
@@ -54,6 +55,25 @@
          -->
          </ul>
       </form>
+      <script>
+        async function sendGenerateMealPlanRequest() { 
+          //Get the values from the HTML
+
+          try { 
+            const config = { headers: { 'Content-Type': 'application/json' } };
+            
+            const saveDiet = await axios.post('http://localhost:8080/api/v1/addPreference', { }, config);
+            const saveIntolerance = await axios.post('http://localhost:8080/api/v1/addIntolerance', { }, config);
+            const response = await axios.post('http://localhost:8080/api/v1/generateMealPlan', {  }, config); 
+            if(response.data.redirectPath) {
+              location.href = response.data.redirectPath;
+            }
+          } catch (error) { 
+            alert(error)
+            console.error(error); 
+          } 
+        };
+      </script>
     </section>
   </body>
 </html>
