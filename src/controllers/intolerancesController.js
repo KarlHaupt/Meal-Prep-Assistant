@@ -8,7 +8,7 @@ const { TYPES } = require('tedious');
 exports.getAllIntolerances = catchAsyncError(async (req, res, next) => {
     const { email } = req.body;
     
-    let sql = "spIntolerances_GetByUserEmail"
+    let sql = "spIntolerances_GetAllIntolerances"
     
     const request = new Request(sql, function(err) {
         if(err) {
