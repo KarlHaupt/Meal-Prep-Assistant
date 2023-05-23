@@ -42,6 +42,9 @@ const loginUser = catchAsyncError(async (req, res, next) => {
                 return next(new ErrorHandler('Invalid Email or Password', 401));
             }
         }
+
+        session = req.session;
+        session.email = email
         
         res.status(200).json({
             success: true,
