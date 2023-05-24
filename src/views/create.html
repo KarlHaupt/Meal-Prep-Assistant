@@ -8,15 +8,18 @@
     <header>
       <nav>
         <ul>
-          <a href="all-meal-plans.html"><li>My Meal Plans</li></a>
-          <a href="login.html"><li>Logout</li></a>
+          <a ><li>My Meal Plans</li></a>
+          <a ><li>Logout</li></a>
+          <!-- TO DO: Add navigation to the right pages -->
         </ul>
       </nav>
     </header>
     <section class="create__container">
-      <form onsubmit="sendGenerateMealPlanRequest()">
+      <form id="generateMealPlan" onsubmit="submitForm()">
         <h1>Create Meal Plan</h1>
-        
+        <p id="errorContainer" style="display: none; color: red;">
+        Please select at least one diet and one intolerance/allergen.
+        </p>
         <h3>Select your diet:</h3>
         <section class="create__form-options" id="preferenceList"></section>
 
@@ -33,8 +36,8 @@
         // Populate intolerances is called in populatePreferences because of timing
         populatePreferences();
 
-        async function sendGenerateMealPlanRequest() { 
-          //Get the values from the HTML
+        async function sendGenerateMealPlanRequest(diet, intolerance) { 
+          //TO DO: Use the passed params to do stuff:
 
           try { 
             const config = { headers: { 'Content-Type': 'application/json' } };
@@ -80,6 +83,42 @@
           console.log(list);
           intol.innerHTML = list;
         };
+
+        function submitForm(){
+          const form = document.getElementById('myForm');
+          const errorContainer = document.getElementById('errorContainer');
+
+          form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+          // Check if at least one radio button is selected
+          const radioButtons = document.getElementsByName('diet');
+          let selectedRadioButtonValue = '';
+          for (let i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+              selectedRadioButtonValue = radioButtons[i].value;
+              break;
+            }
+          }
+
+          // Check if at least one checkbox is selected
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          let selectedCheckboxValues = [];
+          for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+              selectedCheckboxValues.push(checkboxes[i].value);
+              break;
+            }
+          }
+
+          if (isRadioButtonSelected && isCheckboxSelected) {
+            sendGenerateMealPlanRequest(selectedRadioButtonValue, selectedCheckboxValues)
+          } else {
+            // Show validation error message
+            errorContainer.style.display = 'block';
+          }
+        });
+        }
       </script>
     </section>
   </body>
