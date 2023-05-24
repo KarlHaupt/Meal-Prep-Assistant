@@ -15,7 +15,7 @@
         <input id="password" type="password" name="password" required />
         <button type="submit" class="login__button">Login</button>
       </form>
-      <a class="register-nav" onclick="redirectToRegister()">Register</a>
+      <a class="register-nav" href="api/v1/register">Register</a>
       <script>
         async function sendLoginRequest() {
           const email = document.getElementById("email").value;
@@ -36,10 +36,6 @@
             alert(error);
             console.error(error);
           }
-        }
-
-        function redirectToRegister() {
-          //TO DO: go to register page
         }
       </script>
     </section>
