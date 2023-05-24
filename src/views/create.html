@@ -39,9 +39,9 @@
           try { 
             const config = { headers: { 'Content-Type': 'application/json' } };
             
-            const saveDiet = await axios.post('http://localhost:8080/api/v1/addPreference', { }, config);
-            const saveIntolerance = await axios.post('http://localhost:8080/api/v1/addIntolerance', { }, config);
-            const response = await axios.post('http://localhost:8080/api/v1/generateMealPlan', {  }, config); 
+            const saveDiet = await axios.post('/api/v1/addPreference', { }, config);
+            const saveIntolerance = await axios.post('/api/v1/addIntolerance', { }, config);
+            const response = await axios.post('/api/v1/generateMealPlan', {  }, config); 
             if(response.data.redirectPath) {
               location.href = response.data.redirectPath;
             }
@@ -54,7 +54,7 @@
         async function populatePreferences(){
           console.log("Running populate preference list");
           const pref = document.getElementById('preferenceList');
-          const preferenceList = await axios.get('http://localhost:8080/api/v1/getAllPreferences');
+          const preferenceList = await axios.get('/api/v1/getAllPreferences');
           let list = "<ul>";
           for(let i=0; i<preferenceList.data.user_preferences.length; i++){
             list += `<li class="checkbox-container"><input class="checkmark" type="radio" name="diet">` + preferenceList.data.user_preferences[i][0].value + "</li>";
@@ -70,7 +70,7 @@
         async function populateIntolerances(){
           console.log("Running populate intolerance list");
           const intol = document.getElementById('intoleranceList');
-          const intoleranceList = await axios.get('http://localhost:8080/api/v1/getAllIntolerances');
+          const intoleranceList = await axios.get('/api/v1/getAllIntolerances');
           let list = "<ul>";
           for(let i=0; i<intoleranceList.data.user_intolerances.length; i++){
             list += `<li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens">` + intoleranceList.data.user_intolerances[i][0].value + "</li>";

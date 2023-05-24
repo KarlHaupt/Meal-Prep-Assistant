@@ -30,12 +30,12 @@
 
           try { 
             const config = { headers: { 'Content-Type': 'application/json' } };
-            const response = await axios.post('http://localhost:8080/api/v1/auth/register', { username, email, password, confirm_password }, config); 
+            const response = await axios.post('/api/v1/auth/register', { username, email, password, confirm_password }, config); 
             if(response.data.redirectPath) {
               location.href = response.data.redirectPath;
             }
           } catch (error) { 
-            location.href = 'http://localhost:8080/api/v1/register';
+            location.href = '/api/v1/register';
             alert(error)
             console.error(error); 
           } 

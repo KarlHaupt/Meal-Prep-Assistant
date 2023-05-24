@@ -54,7 +54,7 @@ const loginUser = catchAsyncError(async (req, res, next) => {
         res.status(200).json({
           success: true,
           message: 'Login Successfully',
-          redirectPath: "http://localhost:8080/api/v1/mealPlan",
+          redirectPath: "/api/v1/mealPlan",
           user: rows[0][1].value
         });
       }
@@ -95,7 +95,7 @@ const registerUser = async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Register successful",
-    redirectPath: "http://localhost:8080/api/v1/login",
+    redirectPath: "/api/v1/login",
   });
 };
 

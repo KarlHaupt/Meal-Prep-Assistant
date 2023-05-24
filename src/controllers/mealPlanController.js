@@ -20,7 +20,7 @@ const generateMealPlan = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'Generated Meal Plan Successfully',
-        redirectPath: "http://localhost:8080/api/v1/myMealPlan",
+        redirectPath: "/api/v1/myMealPlan",
         plan: plan
     });
 });
