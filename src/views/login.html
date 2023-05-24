@@ -29,9 +29,9 @@
               config
             );
             if (response.data.redirectPath) {
-              location.href = response.data.redirectPath;
+              location.replace(response.data.redirectPath);
             }
-            return response;
+            // return response;
           } catch (error) {
             alert(error);
             console.error(error);
