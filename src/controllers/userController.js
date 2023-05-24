@@ -51,7 +51,7 @@ const loginUser = catchAsyncError(async (req, res, next) => {
         session = req.session;
         session.email = email
 
-        res.redirect("https://meal-prep-assistant-web-service.onrender.com/api/v1/login");
+        res.redirect("https://meal-prep-assistant-web-service.onrender.com/api/v1/mealPlan");
 
         // res.status(200).json({
         //   success: true,
