@@ -1,3 +1,5 @@
+USE MealPlanDB
+GO
 
 CREATE PROCEDURE spPreferences_GetByUserEmail
 	@email nvarchar(120)

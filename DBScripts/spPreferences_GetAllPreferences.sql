@@ -1,3 +1,6 @@
+USE MealPlanDB
+GO
+
 CREATE PROCEDURE dbo.spPreferences_GetAllPreferences
 AS
 BEGIN
