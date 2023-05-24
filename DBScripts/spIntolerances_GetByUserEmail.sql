@@ -1,3 +1,6 @@
+USE MealPlanDB
+GO
+
 CREATE PROCEDURE spIntolerances_GetByUserEmail
 	@email nvarchar(120)
 AS

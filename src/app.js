@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const morgan = require('morgan');
 const cookieParser = require("cookie-parser");
@@ -20,17 +20,15 @@ app.use(session({
 app.use(cookieParser())
 app.use(express.static("src/public"))
 
-const users = require('./routes/user');
-const intolerances = require('./routes/intolerances');
-const preferences = require('./routes/preferences');
-const mealPlan = require('./routes/mealPlan');
+const users = require("./routes/user");
+const intolerances = require("./routes/intolerances");
+const preferences = require("./routes/preferences");
+const mealPlan = require("./routes/mealPlan");
 
-app.get('/', loginView)
-
-app.use('/api/v1', users);
-app.use('/api/v1', intolerances);
-app.use('/api/v1', preferences);
-app.use('/api/v1', mealPlan);
+app.use("/api/v1", users);
+app.use("/api/v1", intolerances);
+app.use("/api/v1", preferences);
+app.use("/api/v1", mealPlan);
 
 app.use(errorMiddleware);
 

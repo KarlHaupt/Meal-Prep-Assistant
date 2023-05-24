@@ -1,3 +1,5 @@
+USE MealPlanDB
+GO
 
 CREATE PROCEDURE spPreferences_InsertUserPreference
 	@user_preference varchar(50),

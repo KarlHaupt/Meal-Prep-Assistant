@@ -1,3 +1,6 @@
+USE MealPlanDB
+GO
+
 CREATE PROCEDURE spIntolerances_InsertUserIntolerance
 	@user_intolerance varchar(50),
 	@user_email nvarchar(100)
