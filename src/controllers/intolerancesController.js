@@ -78,9 +78,8 @@ exports.getIntolerances = catchAsyncError(async (req, res, next) => {
 });
 
 exports.addIntolerance = catchAsyncError(async (req, res, next) => {
-    //const { intolerance, email } = req.body;
-    const intolerance = 'Grain';
-    const email = 'test';
+    const { intolerance } = req.body;
+    const email = req.session.email;
 
     let sql = 'spIntolerances_InsertUserIntolerance';
 
