@@ -29,6 +29,7 @@
               config
             );
             if (response.data.redirectPath) {
+              console.log("Redirect: ", response.data.redirectPath);
               location.replace(response.data.redirectPath);
             }
             // return response;
