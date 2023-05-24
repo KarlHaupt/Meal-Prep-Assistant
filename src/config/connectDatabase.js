@@ -1,14 +1,14 @@
 const Connection = require('tedious').Connection;
 
 const config = {
-  server: "localhost",
+  server: "mssqldb.cd9qu0bdz0pl.af-south-1.rds.amazonaws.com",
   options: { trustServerCertificate: true, database: "MealPlanDB", rowCollectionOnDone: true},
   database: "MealPlanDB",
   authentication: {
     type: "default",
     options: {  
       userName: "root",
-      password: ""
+      password: "Group12MealPlanDB"
     }
   }
 };

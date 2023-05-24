@@ -1,3 +1,6 @@
+USE MealPlanDB
+GO
+
 CREATE PROCEDURE dbo.spIntolerances_GetAllIntolerances
 AS
 BEGIN
