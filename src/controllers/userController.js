@@ -47,16 +47,18 @@ const loginUser = catchAsyncError(async (req, res, next) => {
         if (!isPasswordMatched) {
           return next(new ErrorHandler("Invalid Email or Password", 401));
         }
-      }
 
-      res.status(200).json({
-        success: true,
-        message: "Login Successfully",
-        redirectPath: "http://localhost:8080/api/v1/mealPlan",
-        user: rows[0][1].value,
-      });
-    })
-  );
+        session = req.session;
+        session.email = email
+
+        res.status(200).json({
+          success: true,
+          message: 'Login Successfully',
+          redirectPath: "http://localhost:8080/api/v1/mealPlan",
+          user: rows[0][1].value
+        });
+      }
+    }));
 });
 
 // //Register User => api/v1/register

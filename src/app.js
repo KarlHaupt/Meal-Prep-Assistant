@@ -1,14 +1,24 @@
 const express = require("express");
 const app = express();
-const morgan = require("morgan");
+const morgan = require('morgan');
+const cookieParser = require("cookie-parser");
+const session = require('express-session');
 
-const errorMiddleware = require("./middlewares/error");
+const errorMiddleware = require('./middlewares/error');
+const { loginView } = require('./controllers/userController');
+const oneDay = 1000 * 60 * 60 * 24;
 
-app.use(morgan("tiny"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-app.use(express.static("src/public"));
+app.use(morgan('tiny'));
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+app.use(session({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
+app.use(cookieParser())
+app.use(express.static("src/public"))
 
 const users = require("./routes/user");
 const intolerances = require("./routes/intolerances");
