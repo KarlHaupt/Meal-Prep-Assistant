@@ -51,12 +51,14 @@ const loginUser = catchAsyncError(async (req, res, next) => {
         session = req.session;
         session.email = email
 
-        res.status(200).json({
-          success: true,
-          message: 'Login Successfully',
-          redirectPath: "/api/v1/mealPlan",
-          user: rows[0][1].value
-        });
+        res.redirect("https://meal-prep-assistant-web-service.onrender.com/api/v1/login");
+
+        // res.status(200).json({
+        //   success: true,
+        //   message: 'Login Successfully',
+        //   redirectPath: "/api/v1/mealPlan",
+        //   user: rows[0][1].value
+        // });
       }
     }));
 });
