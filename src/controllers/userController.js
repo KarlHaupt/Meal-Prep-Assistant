@@ -95,7 +95,7 @@ const registerUser = async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Register successful",
-    redirectPath: "/api/v1/login",
+    redirectPath: "https://meal-prep-assistant-web-service.onrender.com/api/v1/login",
   });
 };
 
