@@ -22,7 +22,7 @@
           const password = document.getElementById("password").value;
 
           try {
-            const config = { headers: { "Content-Type": "application/json" } };
+            const config = { headers: { "Content-Type": "application/json", Accept: "*/*" } };
             const response = await axios.post(
               "/api/v1/auth/login",
               { email, password },
