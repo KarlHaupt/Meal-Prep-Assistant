@@ -32,6 +32,8 @@
               console.log("Redirect: ", response.data.redirectPath);
               location.replace(response.data.redirectPath);
             }
+            console.log("here: ", response);
+            alert(response);
             // return response;
           } catch (error) {
             alert(error);
