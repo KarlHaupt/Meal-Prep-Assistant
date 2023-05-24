@@ -80,6 +80,43 @@
           console.log(list);
           intol.innerHTML = list;
         };
+
+        function submitForm(){
+          console.log("Submitting form")
+          const form = document.getElementById('myForm');
+          const errorContainer = document.getElementById('errorContainer');
+
+          form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+          // Check if at least one radio button is selected
+          const radioButtons = document.getElementsByName('diet');
+          let selectedRadioButtonValue = '';
+          for (let i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+              selectedRadioButtonValue = radioButtons[i].value;
+              break;
+            }
+          }
+
+          // Check if at least one checkbox is selected
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          let selectedCheckboxValues = [];
+          for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+              selectedCheckboxValues.push(checkboxes[i].value);
+              break;
+            }
+          }
+
+          if (isRadioButtonSelected && isCheckboxSelected) {
+            sendGenerateMealPlanRequest(selectedRadioButtonValue, selectedCheckboxValues)
+          } else {
+            // Show validation error message
+            errorContainer.style.display = 'block';
+          }
+        });
+        }
       </script>
     </section>
   </body>
