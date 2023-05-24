@@ -11,6 +11,8 @@ module.exports = (err, req, res, next) => {
     }
 
     if(process.env.NODE_ENV !== 'PRODUCTION') {
+        //TODO: Find the unique constraint error with tedious and pass it here
+
         res.status(err.statusCode || 500).json({
             success: false,
             message: err.message || 'Internal Server Error'
