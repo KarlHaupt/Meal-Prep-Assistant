@@ -18,37 +18,11 @@
         <h1>Create Meal Plan</h1>
         
         <h3>Select your diet:</h3>
-        <section class="create__form-options">
-        <ul >
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="gluten-free"><label>Gluten Free</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="ketogenic"><label>Ketogenic</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="vegetarian"><label>Vegetarian</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="lacto-vegetarian"><label>Lacto-vegetarian</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="ovo-vegetarian"><label>Ovo-vegetarian</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="vegan"><label>Vegan</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="pescetarian"><label>Pescetarian</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="paleo"><label>Paleo</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="primal"><label>Primal</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="low-FODMAP"><label>Low FODMAP</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="whole30"><label>Whole30</label></input></li>
+        <section class="create__form-options" id="preferenceList"></section>
 
-        </ul></section>
         <h3>Select any intolerances/allergens:</h3>
-        <section class="create__form-options">
-        <ul >
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="dairy"><label>Dairy</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="peanut"><label>Peanut</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="soy"><label>Soy</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="egg"><label>Egg</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="seafood"><label>Seafood</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="sulfite"><label>Sulfite</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="gluten"><label>Gluten</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="sesame"><label>Sesame</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="tree-nut"><label>Tree Nut</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="grain"><label>Grain</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="shellfish"><label>Shellfish</label></input></li>
-        <li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="wheat"><label>Wheat</label></input></li>
-        </ul></section>
+        <section class="create__form-options" id="intoleranceList"></section>
+
         <button type="submit" class="create__button">Generate Meal Plan</button>
         <!-- TO DO: add validation using JS to ensure that the user chooses at least one checkbox 
         https://html.form.guide/checkbox/html-form-checkbox-required/
@@ -56,6 +30,9 @@
          </ul>
       </form>
       <script>
+        // Populate intolerances is called in populatePreferences because of timing
+        populatePreferences();
+
         async function sendGenerateMealPlanRequest() { 
           //Get the values from the HTML
 
@@ -72,6 +49,36 @@
             alert(error)
             console.error(error); 
           } 
+        };
+
+        async function populatePreferences(){
+          console.log("Running populate preference list");
+          const pref = document.getElementById('preferenceList');
+          const preferenceList = await axios.get('http://localhost:8080/api/v1/getAllPreferences');
+          let list = "<ul>";
+          for(let i=0; i<preferenceList.data.user_preferences.length; i++){
+            list += `<li class="checkbox-container"><input class="checkmark" type="radio" name="diet">` + preferenceList.data.user_preferences[i][0].value + "</li>";
+          }
+
+          list += "</ul>";
+          console.log(list);
+          pref.innerHTML = list;
+
+          populateIntolerances()
+        };
+
+        async function populateIntolerances(){
+          console.log("Running populate intolerance list");
+          const intol = document.getElementById('intoleranceList');
+          const intoleranceList = await axios.get('http://localhost:8080/api/v1/getAllIntolerances');
+          let list = "<ul>";
+          for(let i=0; i<intoleranceList.data.user_intolerances.length; i++){
+            list += `<li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens">` + intoleranceList.data.user_intolerances[i][0].value + "</li>";
+          }
+
+          list += "</ul>";
+          console.log(list);
+          intol.innerHTML = list;
         };
       </script>
     </section>
