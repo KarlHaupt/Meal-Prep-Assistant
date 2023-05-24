@@ -8,8 +8,7 @@
     "npm-install": "npm install",
     "-----------Dev------------": "",
     "dev": "SET NODE_ENV=DEVELOPMENT& nodemon src/index",
-    "prod": "node src/index",
-    // "build": "npm run prod"
+    "prod": "node src/index"
   },
   "repository": {
     "type": "git",
