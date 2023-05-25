@@ -8,12 +8,11 @@ body {
 h1 {
   padding: 0;
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 table {
   padding: 0;
-  margin: 0;
   border-collapse: collapse;
   width: 100%;
 }
@@ -41,7 +40,7 @@ th {
 
 th,
 td {
-  padding: 5px;
+  padding: 0.3125rem;
 }
 
 td {
@@ -82,20 +81,21 @@ a:hover {
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
-  border-radius: 4px;
-  padding: 20px;
-  width: 100vw;
-  gap: 10px;
+  border-radius: 0.25rem;
+  padding: 1.25rem;
+  margin: 1.25rem;
+  width: 100vw - 40;
+  gap: 0.625rem;
 }
 
 .mealplan {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  gap: 10px;
+  gap: 0.625rem;
   background-color: rgba(144, 161, 125, 0.3);
-  border-radius: 8px;
-  padding: 10px;
+  border-radius: 0.5rem;
+  padding: 0.625rem;
   width: 100%;
 }
 

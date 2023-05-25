@@ -9,9 +9,8 @@
     <header>
       <nav>
         <ul>
-          <a><li>My Meal Plans</li></a>
-          <a><li>Logout</li></a>
-          <!-- TO DO: Add navigation to the right pages -->
+          <h1>Meal Prep Assistant |</h1>
+          <a href="/"><li>Logout</li></a>
         </ul>
       </nav>
     </header>
@@ -50,64 +49,64 @@
     </section>
     <script>
       async function renderMealPlan() {
-          try {
-            const response = await axios.get('/api/v1/getMealPlan'); 
-            console.log(response);
+        try {
+          const response = await axios.get("/api/v1/getMealPlan");
+          console.log(response);
 
-            let menu = response.data.plan.week;
+          let menu = response.data.plan.week;
 
-            console.log('Inside');
+          console.log("Inside");
 
-            for (let day in menu) {
-              let container = document.getElementById(`meal-table--${day}`);
-              let table = document.createElement("table");
-              let cols = ["Meal", "Title", "Prep Time", "Servings", " "];
-              let meals = menu[day].meals;
+          for (let day in menu) {
+            let container = document.getElementById(`meal-table--${day}`);
+            let table = document.createElement("table");
+            let cols = ["Meal", "Title", "Prep Time", "Servings", " "];
+            let meals = menu[day].meals;
 
-              let thead = document.createElement("thead");
+            let thead = document.createElement("thead");
+            let tr = document.createElement("tr");
+
+            cols.forEach((item) => {
+              let th = document.createElement("th");
+              th.innerText = item;
+              tr.appendChild(th);
+            });
+            thead.appendChild(tr);
+            table.append(tr);
+
+            meals.forEach((meal, index) => {
               let tr = document.createElement("tr");
+              let mealType = ["Breakfast", "Lunch", "Dinner"];
+              let mealColumn = document.createElement("td");
+              mealColumn.innerText = mealType[index];
+              tr.appendChild(mealColumn);
 
-              cols.forEach((item) => {
-                let th = document.createElement("th");
-                th.innerText = item;
-                tr.appendChild(th);
+              let vals = ["title", "readyInMinutes", "servings", "sourceUrl"];
+
+              vals.forEach((heading) => {
+                let td = document.createElement("td");
+                if (heading === "sourceUrl") {
+                  td.innerHTML = `<a href=${meal[heading]}><button>Recipe</button></a>`;
+                } else {
+                  td.innerHTML = meal[heading];
+                }
+                tr.appendChild(td);
               });
-              thead.appendChild(tr);
-              table.append(tr);
 
-              meals.forEach((meal, index) => {
-                let tr = document.createElement("tr");
-                let mealType = ["Breakfast", "Lunch", "Dinner"];
-                let mealColumn = document.createElement("td");
-                mealColumn.innerText = mealType[index];
-                tr.appendChild(mealColumn);
-
-                let vals = ["title", "readyInMinutes", "servings", "sourceUrl"];
-
-                vals.forEach((heading) => {
-                  let td = document.createElement("td");
-                  if (heading === "sourceUrl") {
-                    td.innerHTML = `<a href=${meal[heading]}><button>Recipe</button></a>`;
-                  } else {
-                    td.innerHTML = meal[heading];
-                  }
-                  tr.appendChild(td);
-                });
-
-                table.appendChild(tr);
-              });
-              container.appendChild(table);
-            }
-          } catch(error) {
-            alert(error)
-            console.error(error); 
+              table.appendChild(tr);
+            });
+            container.appendChild(table);
           }
-
-          //HERE
+        } catch (error) {
+          alert(error);
+          console.error(error);
         }
 
-        Window.onload = renderMealPlan;
-        renderMealPlan();
+        //HERE
+      }
+
+      Window.onload = renderMealPlan;
+      renderMealPlan();
     </script>
   </body>
 </html>
