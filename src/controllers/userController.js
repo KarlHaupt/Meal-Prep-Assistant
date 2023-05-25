@@ -5,7 +5,6 @@ const catchAsyncError = require("../middlewares/catchAsyncError");
 const bcrypt = require("bcryptjs");
 
 const path = require("path");
-const { log } = require("console");
 
 const registerView = (req, res) => {
   res.sendFile("register.html", { root: path.join(__dirname, "../views") });
@@ -13,7 +12,6 @@ const registerView = (req, res) => {
 
 const loginView = (req, res) => {
   res.sendFile("login.html", { root: path.join(__dirname, "../views") });
-  console.log("Sent login page");
 };
 
 //Login User => api/v1/login
@@ -50,8 +48,6 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 
         session = req.session;
         session.email = email
-
-        //res.redirect("https://meal-prep-assistant-web-service.onrender.com/api/v1/mealPlan");
 
         res.status(200).json({
            success: true,

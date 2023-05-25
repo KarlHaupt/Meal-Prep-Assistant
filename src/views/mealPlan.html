@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title>Weekly Meal Plan</title>
+    <link rel="stylesheet" href="/styles/meal-plan.css" />
+    <link rel="stylesheet" href="/styles/create.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <a><li>My Meal Plans</li></a>
+          <a><li>Logout</li></a>
+          <!-- TO DO: Add navigation to the right pages -->
+        </ul>
+      </nav>
+    </header>
+    <section class="container">
+      <section>
+        <h1>Your meal plan:</h1>
+      </section>
+      <section class="mealplan">
+        <h1>Monday</h1>
+        <section id="meal-table--monday"></section>
+      </section>
+      <section class="mealplan">
+        <h1>Tuesday</h1>
+        <section id="meal-table--tuesday"></section>
+      </section>
+      <section class="mealplan">
+        <h1>Wednesday</h1>
+        <section id="meal-table--wednesday"></section>
+      </section>
+      <section class="mealplan">
+        <h1>Thursday</h1>
+        <section id="meal-table--thursday"></section>
+      </section>
+      <section class="mealplan">
+        <h1>Friday</h1>
+        <section id="meal-table--friday"></section>
+      </section>
+      <section class="mealplan">
+        <h1>Saturday</h1>
+        <section id="meal-table--saturday"></section>
+      </section>
+      <section class="mealplan">
+        <h1>Sunday</h1>
+        <section id="meal-table--sunday"></section>
+      </section>
+    </section>
+    <script>
+      async function renderMealPlan() {
+          try {
+            const response = await axios.get('/api/v1/getMealPlan'); 
+            console.log(response);
+
+            let menu = response.data.plan.week;
+
+            console.log('Inside');
+
+            for (let day in menu) {
+              let container = document.getElementById(`meal-table--${day}`);
+              let table = document.createElement("table");
+              let cols = ["Meal", "Title", "Prep Time", "Servings", " "];
+              let meals = menu[day].meals;
+
+              let thead = document.createElement("thead");
+              let tr = document.createElement("tr");
+
+              cols.forEach((item) => {
+                let th = document.createElement("th");
+                th.innerText = item;
+                tr.appendChild(th);
+              });
+              thead.appendChild(tr);
+              table.append(tr);
+
+              meals.forEach((meal, index) => {
+                let tr = document.createElement("tr");
+                let mealType = ["Breakfast", "Lunch", "Dinner"];
+                let mealColumn = document.createElement("td");
+                mealColumn.innerText = mealType[index];
+                tr.appendChild(mealColumn);
+
+                let vals = ["title", "readyInMinutes", "servings", "sourceUrl"];
+
+                vals.forEach((heading) => {
+                  let td = document.createElement("td");
+                  if (heading === "sourceUrl") {
+                    td.innerHTML = `<a href=${meal[heading]}><button>Recipe</button></a>`;
+                  } else {
+                    td.innerHTML = meal[heading];
+                  }
+                  tr.appendChild(td);
+                });
+
+                table.appendChild(tr);
+              });
+              container.appendChild(table);
+            }
+          } catch(error) {
+            alert(error)
+            console.error(error); 
+          }
+
+          //HERE
+        }
+
+        Window.onload = renderMealPlan;
+        renderMealPlan();
+    </script>
+  </body>
+</html>

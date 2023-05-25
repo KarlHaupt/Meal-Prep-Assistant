@@ -308,4 +308,4 @@ function renderMealPlan() {
   }
 }
 
-// Window.onload = renderMealPlan;
+Window.onload = renderMealPlan;

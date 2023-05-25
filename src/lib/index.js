@@ -7,7 +7,7 @@ module.exports = class MealPlan {
     }
 
     async generateMealPlan(targetCalories=2000, diet='', exclude='') {
-        let timeFrame = 'day'
+        let timeFrame = 'week'
         let url = `${this.baseUrl}/mealplanner/generate?apiKey=${this.apiKey}&targetCalories=${targetCalories}&timeFrame=${timeFrame}`;
         if (diet){
             url += `&${diet}`;

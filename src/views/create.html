@@ -55,12 +55,16 @@
             console.log(response);
             
             if(response.data.redirectPath) {
-              location.href = response.data.redirectPath;
+              localStorage.setItem('plan', response.data.plan);
+              window.location.assign(response.data.redirectPath);
             }
           } catch (error) { 
             alert(error)
             console.error(error); 
           } 
+
+          const mPlan = localStorage.getItem('plan');
+          console.log(mPlan.meals);
         };
 
         async function populatePreferences(){

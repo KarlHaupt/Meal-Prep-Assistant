@@ -9,18 +9,32 @@ const mealPlanView = (req, res) => {
 }
 
 const myMealPlanView = (req, res) => {
-    res.sendFile('meal-plan.html', { root: path.join(__dirname, '../views') });
+    res.sendFile('mealPlan.html', { root: path.join(__dirname, '../views') });
 }
 
 const generateMealPlan = catchAsyncError(async (req, res, next) => {
     const { targetCalories, diet, excludeItem } = req.body;
 
-    const plan = await mealPlan.generateMealPlan(targetCalories, diet, excludeItem)
+    const plan = await mealPlan.generateMealPlan(targetCalories, diet, excludeItem);
+
+    session = req.session;
+    session.plan = plan
 
     res.status(200).json({
         success: true,
         message: 'Generated Meal Plan Successfully',
         redirectPath: "/api/v1/myMealPlan",
+        plan: plan
+    });
+});
+
+const getMealPlan = catchAsyncError(async (req, res, next) => {
+    session = req.session;
+    const plan = session.plan
+
+    res.status(200).json({
+        success: true,
+        message: 'Got Meal Plan Successfully',
         plan: plan
     });
 });
@@ -41,5 +55,6 @@ module.exports = {
     mealPlanView,
     myMealPlanView,
     generateMealPlan,
-    getRecipe
+    getRecipe,
+    getMealPlan
 }
