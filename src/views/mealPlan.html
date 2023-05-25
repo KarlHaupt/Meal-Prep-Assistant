@@ -87,7 +87,7 @@
                 vals.forEach((heading) => {
                   let td = document.createElement("td");
                   if (heading === "sourceUrl") {
-                    td.innerHTML = `<a href=${meal[heading]}><button>Recipe</button></a>`;
+                    td.innerHTML = `<a href=${meal[heading]} target="_blank"><button>Recipe</button></a>`;
                   } else {
                     td.innerHTML = meal[heading];
                   }
