@@ -5,41 +5,50 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
+    <h1>Meal Prep Assistant</h1>
     <section class="login__container">
       <form id="formm" class="login__form" onsubmit="sendRegisterRequest()">
         <h3>Register</h3>
         <hr />
         <label for="email">Email</label>
-        <input id="email" type="email" name="email" />
+        <input id="email" type="email" name="email" required />
         <label for="username">Username</label>
-        <input id="username" type="username" name="username" />
+        <input id="username" type="username" name="username" required />
         <label for="password">Password</label>
-        <input id="password" type="password" name="password" />
+        <input id="password" type="password" name="password" required />
         <label for="confirm-password">Confirm Password</label>
-        <input id="confirmPassword" type="password" name="confirm_password" />
-        <button type="submit" class="login__button">
-          Register
-        </button>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirm_password"
+          required
+        />
+        <button type="submit" class="login__button">Register</button>
       </form>
       <script>
-        async function sendRegisterRequest() { 
-          const email = document.getElementById('email').value;
-          const username = document.getElementById('username').value;
-          const password = document.getElementById('password').value;
-          const confirm_password = document.getElementById('confirmPassword').value;
+        async function sendRegisterRequest() {
+          const email = document.getElementById("email").value;
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const confirm_password =
+            document.getElementById("confirmPassword").value;
 
-          try { 
-            const config = { headers: { 'Content-Type': 'application/json' } };
-            const response = await axios.post('/api/v1/auth/register', { username, email, password, confirm_password }, config); 
-            if(response.data.redirectPath) {
+          try {
+            const config = { headers: { "Content-Type": "application/json" } };
+            const response = await axios.post(
+              "/api/v1/auth/register",
+              { username, email, password, confirm_password },
+              config
+            );
+            if (response.data.redirectPath) {
               location.href = response.data.redirectPath;
             }
-          } catch (error) { 
-            location.href = '/api/v1/register';
-            alert(error)
-            console.error(error); 
-          } 
-        };
+          } catch (error) {
+            location.href = "/api/v1/register";
+            alert(error);
+            console.error(error);
+          }
+        }
       </script>
     </section>
   </body>

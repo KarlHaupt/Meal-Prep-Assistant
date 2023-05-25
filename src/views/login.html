@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
+    <h1>Meal Prep Assistant</h1>
     <section class="login__container">
       <form class="login__form" onsubmit="sendLoginRequest()">
         <h3>Login</h3>
@@ -22,7 +23,9 @@
           const password = document.getElementById("password").value;
 
           try {
-            const config = { headers: { "Content-Type": "application/json", Accept: "*/*" } };
+            const config = {
+              headers: { "Content-Type": "application/json", Accept: "*/*" },
+            };
             const response = await axios.post(
               "/api/v1/auth/login",
               { email, password },
