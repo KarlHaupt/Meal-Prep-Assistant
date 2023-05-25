@@ -2,7 +2,7 @@ const MealPlan = require("../lib");
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const path = require('path');
 
-const mealPlan = new MealPlan("need apikey");
+const mealPlan = new MealPlan("7f9400a0bef442a9a319690dd9645e0f");
 
 const mealPlanView = (req, res) => {
     res.sendFile('create.html', { root: path.join(__dirname, '../views') });

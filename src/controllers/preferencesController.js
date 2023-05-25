@@ -39,7 +39,6 @@ exports.getAllPreferences = catchAsyncError(async (req, res, next) => {
 //Get user preferences
 exports.getPreferences = catchAsyncError(async (req, res, next) => {
     //const { email } = req.body;
-    const email = 'test'
 
     let sql = "spPreferences_GetByUserEmail"
     
@@ -77,9 +76,11 @@ exports.getPreferences = catchAsyncError(async (req, res, next) => {
 });
 //Diet
 exports.addPreference = catchAsyncError(async (req, res, next) => {
+    console.log("In preference function")
     const { preference } = req.body;
     const email = req.session.email;
-
+    //let email = 'test@test.com'
+    console.log("email - " + email + " - Preference: " + preference)
     let sql = 'spPreferences_InsertUserPreference';
 
     const request = new Request(sql, function(err, rowCount, rows) {

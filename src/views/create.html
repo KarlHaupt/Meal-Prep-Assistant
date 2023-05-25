@@ -14,7 +14,7 @@
       </nav>
     </header>
     <section class="create__container">
-      <form onsubmit="sendGenerateMealPlanRequest()">
+      <form onsubmit="submitForm()" id="myForm">
         <h1>Create Meal Plan</h1>
         
         <h3>Select your diet:</h3>
@@ -30,18 +30,30 @@
          </ul>
       </form>
       <script>
+
         // Populate intolerances is called in populatePreferences because of timing
         populatePreferences();
 
-        async function sendGenerateMealPlanRequest() { 
+        async function sendGenerateMealPlanRequest(preference, intolerances) { 
           //Get the values from the HTML
 
           try { 
             const config = { headers: { 'Content-Type': 'application/json' } };
             
-            const saveDiet = await axios.post('/api/v1/addPreference', { }, config);
-            const saveIntolerance = await axios.post('/api/v1/addIntolerance', { }, config);
-            const response = await axios.post('/api/v1/generateMealPlan', {  }, config); 
+            let pref = { "preference" : preference }
+            const saveDiet = await axios.post('/api/v1/addPreference', pref, config);
+
+            let intols = []
+            for(let i=0;i<intolerances.length;i++){
+              intols = JSON.stringify({intolerance: intolerances[i]})
+              const saveIntolerance = await axios.post('/api/v1/addIntolerance', intols, config);
+            }
+            
+            const plan = JSON.stringify({targetCalories:'2000', diet:pref, excludeItem:intols});
+            console.log(plan);
+            const response = await axios.post('/api/v1/generateMealPlan', plan, config); 
+            console.log(response);
+            
             if(response.data.redirectPath) {
               location.href = response.data.redirectPath;
             }
@@ -52,32 +64,28 @@
         };
 
         async function populatePreferences(){
-          console.log("Running populate preference list");
           const pref = document.getElementById('preferenceList');
           const preferenceList = await axios.get('/api/v1/getAllPreferences');
           let list = "<ul>";
           for(let i=0; i<preferenceList.data.user_preferences.length; i++){
-            list += `<li class="checkbox-container"><input class="checkmark" type="radio" name="diet">` + preferenceList.data.user_preferences[i][0].value + "</li>";
+            list += `<li class="checkbox-container"><input class="checkmark" type="radio" name="diet" value="` + preferenceList.data.user_preferences[i][0].value + `">` + preferenceList.data.user_preferences[i][0].value + "</li>";
           }
 
           list += "</ul>";
-          console.log(list);
           pref.innerHTML = list;
 
           populateIntolerances()
         };
 
         async function populateIntolerances(){
-          console.log("Running populate intolerance list");
           const intol = document.getElementById('intoleranceList');
           const intoleranceList = await axios.get('/api/v1/getAllIntolerances');
           let list = "<ul>";
           for(let i=0; i<intoleranceList.data.user_intolerances.length; i++){
-            list += `<li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens">` + intoleranceList.data.user_intolerances[i][0].value + "</li>";
+            list += `<li class="checkbox-container"><input class="checkmark" type="checkbox" name="allergens" value="` + intoleranceList.data.user_intolerances[i][0].value + `">` + intoleranceList.data.user_intolerances[i][0].value + "</li>";
           }
 
           list += "</ul>";
-          console.log(list);
           intol.innerHTML = list;
         };
 
@@ -86,26 +94,29 @@
           const form = document.getElementById('myForm');
           const errorContainer = document.getElementById('errorContainer');
 
-          form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
+          // Prevent form submission
 
           // Check if at least one radio button is selected
           const radioButtons = document.getElementsByName('diet');
+          console.log(radioButtons);
           let selectedRadioButtonValue = '';
+          let isRadioButtonSelected = false;
           for (let i = 0; i < radioButtons.length; i++) {
             if (radioButtons[i].checked) {
               selectedRadioButtonValue = radioButtons[i].value;
+              isRadioButtonSelected = true;
               break;
             }
           }
 
           // Check if at least one checkbox is selected
           const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-          let selectedCheckboxValues = [];
+          let selectedCheckboxValues = [];          
+          let isCheckboxSelected = false;
           for (let i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
               selectedCheckboxValues.push(checkboxes[i].value);
-              break;
+              isCheckboxSelected = true;
             }
           }
 
@@ -115,7 +126,6 @@
             // Show validation error message
             errorContainer.style.display = 'block';
           }
-        });
         }
       </script>
     </section>

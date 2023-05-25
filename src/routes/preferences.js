@@ -5,6 +5,6 @@ const { getPreferences, addPreference, getAllPreferences } = require('../control
 
 router.route('/getAllPreferences').get(getAllPreferences);
 router.route('/getPreferences').get(getPreferences);
-router.route('/addPreference').get(addPreference)
+router.route('/addPreference').post(addPreference)
 
 module.exports = router;

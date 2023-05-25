@@ -5,6 +5,6 @@ const { getIntolerances, addIntolerance, getAllIntolerances } = require('../cont
 
 router.route('/getAllIntolerances').get(getAllIntolerances);
 router.route('/getIntolerances').get(getIntolerances);
-router.route('/addIntolerance').get(addIntolerance);
+router.route('/addIntolerance').post(addIntolerance);
 
 module.exports = router;
