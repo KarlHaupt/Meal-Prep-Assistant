@@ -48,15 +48,14 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 
         session = req.session;
         session.email = email
-
-        res.status(200).json({
-           success: true,
-           message: 'Login Successfully',
-           redirectPath: "/api/v1/mealPlan",
-           user: rows[0][1].value
-        });
       }
     }));
+
+    res.status(200).json({
+      success: true,
+      message: 'Login Successfully',
+      redirectPath: "/api/v1/mealPlan",
+    });
 });
 
 // //Register User => api/v1/register
