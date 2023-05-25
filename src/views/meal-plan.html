@@ -1,7 +1,8 @@
 <html>
   <head>
     <title>Weekly Meal Plan</title>
-    <link rel="stylesheet" href="../public/styles/meal-plan.css" />
+    <link rel="stylesheet" href="/styles/meal-plan.css" />
+    <!-- <link rel="stylesheet" href="/styles/create.css" /> -->
   </head>
   <body>
     <header>
@@ -15,7 +16,7 @@
     </header>
     <section class="container">
       <section>
-        <h1>Your mealplan:</h1>
+        <h1>Your meal plan:</h1>
       </section>
       <section class="mealplan">
         <h1>Monday</h1>
@@ -46,6 +47,7 @@
         <section id="meal-table--sunday"></section>
       </section>
     </section>
-    <script src="../utils/renderMealPlan.js"></script>
+    <script type="application/json" onload="renderMealPlan();" src="../utils/renderMealPlan.js" ></script>
+    <!-- <script>renderMealPlan()</script> -->
   </body>
 </html>

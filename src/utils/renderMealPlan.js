@@ -264,6 +264,8 @@ function renderMealPlan() {
 
   let menu = jsonData.week;
 
+  console.log('Inside');
+
   for (let day in menu) {
     let container = document.getElementById(`meal-table--${day}`);
     let table = document.createElement("table");
@@ -306,4 +308,4 @@ function renderMealPlan() {
   }
 }
 
-window.onload = renderMealPlan;
+// Window.onload = renderMealPlan;
