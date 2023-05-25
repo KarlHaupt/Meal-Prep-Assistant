@@ -76,7 +76,7 @@ nav ul li:hover {
 
 .checkbox-container {
   font-family: system-ui, sans-serif;
-  font-size: 22.4px;
+  font-size: 1.4rem;
   line-height: 1.1;
   display: grid;
   grid-template-columns: 1em auto;
