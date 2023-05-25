@@ -18,12 +18,6 @@ CREATE TABLE user_details (
 );
 GO
 
-CREATE TABLE user_meal_plan (
-	[user_id] [INT] NOT NULL,
-	[meal_plan_id] [INT] NOT NULL,
-);
-GO
-
 CREATE TABLE user_preferences (
 	[user_id] [INT] NOT NULL,
 	[preference_id] [INT] NOT NULL,
@@ -33,20 +27,6 @@ GO
 CREATE TABLE lookup_preferences (
 	[preference_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
 	[preference_type] [varchar](100) NOT NULL,
-);
-GO
-
-CREATE TABLE meal_plan (
-	[meal_plan_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[recipe_id] [INT] NOT NULL,
-);
-GO
-
-CREATE TABLE recipe (
-	[recipe_id] [INT] NOT NULL PRIMARY KEY IDENTITY(1,1),
-	[recipe_url] [varchar](200) NULL,
-	[recipe_category] [varchar](100) NULL,
-	[recipe_meal_type] [varchar](50) NULL,
 );
 GO
 
