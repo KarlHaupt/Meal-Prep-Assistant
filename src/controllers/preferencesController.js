@@ -78,8 +78,8 @@ exports.getPreferences = catchAsyncError(async (req, res, next) => {
 exports.addPreference = catchAsyncError(async (req, res, next) => {
     console.log("In preference function")
     const { preference } = req.body;
-    const email = req.session.email;
-    //let email = 'test@test.com'
+    //const email = req.session.email;
+    let email = 'test@test.com'
     console.log("email - " + email + " - Preference: " + preference)
     let sql = 'spPreferences_InsertUserPreference';
 
